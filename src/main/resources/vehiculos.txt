@@ -1,0 +1,2 @@
+1;ASR-121;KIA;Sportage;5;26000;Negro
+2;FAD-124;Toyota;Rav;5;26000;Negro
