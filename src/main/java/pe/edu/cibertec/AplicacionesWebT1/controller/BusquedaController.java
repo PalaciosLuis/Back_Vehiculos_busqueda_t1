@@ -19,6 +19,21 @@ public class BusquedaController {
     public BusquedaResponseDTO buscar(@RequestBody BusquedaRequestDTO busquedaRequestDTO) {
        //try catch
 
+        try {
+            String[] datosBusqueda = busquedaService.buscarVehiculo(busquedaRequestDTO);
+            if (datosBusqueda == null) {
+                return new BusquedaResponseDTO("01", "Error: Ocurrió un problema", "", ""
+                        , "", "","");
+
+            }
+            return new BusquedaResponseDTO("00", "Exito: Vehiculo encontrado", datosBusqueda[0], datosBusqueda[1]
+                    , datosBusqueda[2], datosBusqueda[3],datosBusqueda[4]);
+
+        }catch (IOException e) {
+            return new BusquedaResponseDTO("99", "Error: Ocurrió un problema", "", ""
+                    , "", "","");
+        }
+
 
     }
 
