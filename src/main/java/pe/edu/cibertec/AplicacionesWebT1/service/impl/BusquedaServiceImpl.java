@@ -23,6 +23,30 @@ public class BusquedaServiceImpl implements BusquedaService {
         Resource resource = resourceLoader.getResource("classpath:vehiculos.txt");
 
        //try catch
+        try (BufferedReader br = new BufferedReader(new FileReader(resource.getFile()))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                // Separar los valores de la línea por ";"
+                String[] datos = linea.split(";");
+
+                // Verificar si la placa coincide (índice 1)
+                if (busquedaRequestDTO.placa().equals(datos[1])) {
+                    datosVehiculo = new String[5];  // Arreglo para marca, modelo, asientos, precio, y color
+
+                    // Asignar valores correctamente basados en el formato del archivo
+                    datosVehiculo[0] = datos[2]; // Marca
+                    datosVehiculo[1] = datos[3]; // Modelo
+                    datosVehiculo[2] = datos[4]; // Número de asientos
+                    datosVehiculo[3] = datos[5]; // Precio
+                    datosVehiculo[4] = datos[6]; // Color
+                    break;  // Dejar de buscar una vez que se encuentre la placa
+                }
+            }
+        } catch (Exception e) {
+            datosVehiculo = null;
+            throw new IOException(e);
+        }
+
 
         return datosVehiculo;
     }
